@@ -1,0 +1,23 @@
+.navbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-evenly;
+    background-color: rgb(4, 65, 14);
+    color:white;
+    width:100%;
+    height:10vh;
+}
+h3{
+    margin-left: -40px;
+}
+
+.nav-buttons{
+    color:white;
+    background: none;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+.extra{
+    color:red;
+}
