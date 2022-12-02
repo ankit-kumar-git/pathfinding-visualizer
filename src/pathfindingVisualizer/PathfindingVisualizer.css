@@ -1,0 +1,15 @@
+.grid{
+    width:fit-content;
+    height: fit-content;
+    margin:auto;
+    margin-top: 40px;
+    margin-bottom: 5px;
+}
+.grid-row{
+    margin-top:-4px;
+}
+.btn{
+    width:120px;
+    margin-left:45%;
+    margin-top:10px;
+}
