@@ -1,9 +1,10 @@
 export const dijkstra=(grid,startNode,finishNode)=>{
+    console.log('hello1');
     const visitedNodesInOrder=[];
     startNode.distance=0;
     const unvisitedNodes=getUnvisitedNodes(grid);
 
-    while(!unvisitedNodes.length()){
+    while(unvisitedNodes.length){
         sortUnvisitedNodesByDistance(unvisitedNodes);
         const nearestNode=unvisitedNodes.shift();
 
@@ -13,9 +14,9 @@ export const dijkstra=(grid,startNode,finishNode)=>{
         if(nearestNode.distance===Infinity) return visitedNodesInOrder;
 
         nearestNode.isVisited=true;
-        visitedNodesInOrder(nearestNode);
+        visitedNodesInOrder.push(nearestNode);
 
-        if(nearestNode==finishNode) return visitedNodesInOrder;
+        if(nearestNode===finishNode) return visitedNodesInOrder;
 
         updateUnvisitedNearestNodeNeighbours(nearestNode,grid);
 
@@ -24,29 +25,29 @@ export const dijkstra=(grid,startNode,finishNode)=>{
 
 const getUnvisitedNodes=(grid)=>{
     const unvisitedNodes=[];
-    for(let row in grid){
-        for(let col in row){
-            unvisitedNodes.push(col);
+    for(const row of grid){
+        for(const node of row){
+            unvisitedNodes.push(node);
         }
     }
     return unvisitedNodes;
 };
 const sortUnvisitedNodesByDistance=(unvisitedNodes)=>{
-    unvisitedNodes.sort((nodeA,nodeB)=>{
-        return nodeA.distance-nodeB.distance;
-    })
+    unvisitedNodes.sort((nodeA,nodeB)=>
+        nodeA.distance-nodeB.distance
+    );
 };
 
 const updateUnvisitedNearestNodeNeighbours=(nearestNode,grid)=>{
     const neighbourNodes=getUnvisitedNeighbourNodes(nearestNode,grid);
-    for(let nodes in neighbourNodes){
+    for(const nodes of neighbourNodes){
         nodes.distance=nearestNode.distance+1;
         nodes.previousNode=nearestNode;
     }
 };
 
 const getUnvisitedNeighbourNodes=(nearestNode,grid)=>{
-    const requiresNodes=[];
+    const requiredNodes=[];
     const {row,col}=nearestNode;
 
     if(row>0){
@@ -70,9 +71,10 @@ const getUnvisitedNeighbourNodes=(nearestNode,grid)=>{
 
 
 export const getShortestPathNodesInOrder=(finishNode)=>{
+    console.log('hello2');
     const requiredNodes=[];
-    const currNode=finishNode;
-    while(currNode.previousNode!=null){
+    let currNode=finishNode;
+    while(currNode!==null){
         requiredNodes.unshift(currNode);
         currNode=currNode.previousNode;
     }

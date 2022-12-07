@@ -1,7 +1,8 @@
-import React,{useEffect, useState} from 'react'
+import React,{useState} from 'react'
 // import Navbar from './Navbar';
 import Node from './Node';
 import './PathfindingVisualizer.css';
+import {dijkstra,getShortestPathNodesInOrder} from '../algorithms/dijkstra';
 
 const start_node_row=8;
 const start_node_col=12;
@@ -48,9 +49,6 @@ export default function PathfindingVisualizer() {
   const [grid,setGrid]=useState(getInitialGrid());
   const [isMousePressed,setIsMousePressed]=useState(false);
 
-  const visualizeDijkstra=(e)=>{
-    e.preventDefault();
-  };
 
   const handleMouseEnter=(row,col)=>{
     console.log('MouseEnter');
@@ -69,6 +67,48 @@ export default function PathfindingVisualizer() {
   const handleMouseUp=()=>{
     console.log('Mouse Up');
     setIsMousePressed(false);
+  };
+
+  const animateShortestPath=(shortestPathNodesInOrder)=>{
+    console.log('hello4');
+    const len=shortestPathNodesInOrder?.length || 0;
+    for(let i=0;i<len;i++){
+      setTimeout(()=>{
+        const currNode=shortestPathNodesInOrder[i];
+      document.getElementById(`node-${currNode.row}-${currNode.col}`).className='node node-shortestPath';
+      },50*i);
+    }
+  };
+
+  const animateDijkstra=(visitedNodesInOrder,shortestPathNodesInOrder)=>{
+    console.log('hello3');
+    const len=visitedNodesInOrder?.length || 0;
+    for(let i=0;i<=len;i++){
+      if(i<len){
+        setTimeout(()=>{
+          const node=visitedNodesInOrder[i];
+          document.getElementById(`node-${node.row}-${node.col}`).className='node node-visited';
+        },10*i);
+      }
+      else{
+        setTimeout(()=>{
+          animateShortestPath(shortestPathNodesInOrder);
+        },10*i);
+        return;
+      }
+    }
+    
+  };
+  const visualizeDijkstra=()=>{
+    console.log('hello');
+    const startNode=grid[start_node_row][start_node_col];
+    const finishNode=grid[finish_node_row][finish_node_col];
+
+    const visitedNodesInOrder=dijkstra(grid,startNode,finishNode);
+    const shortestPathNodesInOrder=getShortestPathNodesInOrder(finishNode);
+    console.log(visitedNodesInOrder);
+    console.log(shortestPathNodesInOrder);
+    animateDijkstra(visitedNodesInOrder,shortestPathNodesInOrder);
   };
 
 
