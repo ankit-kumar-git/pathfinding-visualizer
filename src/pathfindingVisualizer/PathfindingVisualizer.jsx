@@ -27,6 +27,9 @@ const createNode=(col,row)=>{
     isStart: row === start_node_row && col===start_node_col,
     isFinish: row === finish_node_row && col===finish_node_col,
     isWall:false,
+    isVisited:false,
+    previousNode:null,
+    distance:Infinity,
   };
 };
 
