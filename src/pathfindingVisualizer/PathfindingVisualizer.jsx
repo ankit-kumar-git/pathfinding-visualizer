@@ -1,11 +1,11 @@
 import React,{useState} from 'react'
-// import Navbar from './Navbar';
+import Navbar from './Navbar';
 import Node from './Node';
 import './PathfindingVisualizer.css';
 import {dijkstra,getShortestPathNodesInOrder} from '../algorithms/dijkstra';
 
 const start_node_row=8;
-const start_node_col=12;
+const start_node_col=10;
 const finish_node_row=3;
 const finish_node_col=26;
 
@@ -114,7 +114,7 @@ export default function PathfindingVisualizer() {
 
   return (
     <>
-    {/* <Navbar/> */}
+    <Navbar/>
     <button onClick={()=>visualizeDijkstra()} className='btn'>Visualize Dijkstra</button>
     <div className="grid">
       {grid.map((row,rowId)=>{
